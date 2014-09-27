@@ -257,3 +257,11 @@ label.error{
 .make-divide{
 	margin-top : 30px;
 }
+
+
+.division-item{
+	display: inline-block;
+	position: relative;
+	padding: 5px;
+}
+

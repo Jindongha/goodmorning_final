@@ -10,6 +10,15 @@ jQuery(document).ready(function($){
 		$back_to_login_link = $form_forgot_password.find('.cd-form-bottom-message a'),
 		$user_nav = $('.user-nav');
 
+
+	$('#divisionModal').modal({
+  		show: false
+	})
+
+	$('#widgetModal').modal({
+  		show: false
+	})
+
 	//open modal
 	$user_nav.on('click', function(event){
 

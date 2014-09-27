@@ -417,5 +417,70 @@
     {% endif %}
     </div>
 
+
+
+<!-- Modal -->
+    <div class="modal fade" id="divisionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form" method="post" action="{{ url_for('make_division') }}"> 
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">화면 분할</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="article_create_author"> 
+                            <div class = "division-item">가로  : </div>
+                            <div class = "division-item"><input type="text" name="col" id = "col" class="form-control" placeholder = "가로 분할 개수, 최대 4"></div>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_create_author">
+                        <div class = "division-item"> 세로  : </div>
+                        <div class = "division-item"> <input type="text" name="row" id = "row" class="form-control" placeholder = "세로 분할 개수, 최대 4"></div>
+                        </label> 
+                    </div>
+                    </br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="widgetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">위젯 설정</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <a href="{{ url_for('set_naversearch')}}">
+                        <img src="./static/images/naver_search.png" class="img-middle-rounded">
+                    </a>
+                    <a href="{{ url_for('set_googlesearch')}}">
+                        <img src="./static/images/google_search.png" class="img-middle-rounded">
+                    </a>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    
+    
+
 {% endblock %}
 
