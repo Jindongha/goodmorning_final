@@ -1,0 +1,421 @@
+{% extends "layout.html" %}
+
+{% block contents %}
+    </br>
+    </br>
+
+    <div class = "division">
+    {% if search == "naver" %}
+        <div class = "indivision">
+            <img src="./static/images/naver_logo.PNG" class="naver-logo">
+            <input type="text" class="greenbox" name="text" id = "input_url" maxlength="255">
+            <button type="submit" class="naver-search" id = "naver_btn_reserve"></button>
+        </div>
+    {% elif search == "google" %}
+        <div class = "indivision">
+            <img src="./static/images/google_logo.PNG" class="google-logo">
+            <input type="text" class="googlebox" name="text" id = "input_url" maxlength="255">
+            <a class="detail-btn-title" id="google_btn_reserve"><img src="./static/images/google_button.PNG" class="google-search"></a>
+        </div>
+
+    {% endif %}
+    
+    <div class = "division">
+    {% if division_col %}
+        {% for row in range(division_row) %}
+            {% for col in range(division_col) %}
+                
+                {% if (row*division_col)+col == 0 and (url_dic["block_url0"] or widget_dic["block_widget0"] ) %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url0"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url0"]}}">
+
+                        {% if url_dic["block_url_img0"] %}
+                            <img src="{{url_dic["block_url_img0"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %} 
+                        
+                        </a>
+                    {% elif widget_dic["block_widget0"] %}
+                        
+                        {{ widget_dic["block_widget0"] }}
+                        
+                    {% endif %}
+                    </div>
+                    
+
+                {% elif (row*division_col)+col == 1 and (url_dic["block_url1"] or widget_dic["block_widget1"] ) %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url1"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url1"]}}">
+                        {% if url_dic["block_url_img1"] %}
+                            <img src="{{url_dic["block_url_img1"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget1"] %}
+                            {{ widget_dic["block_widget1"] }}
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 2 and (url_dic["block_url2"] or widget_dic["block_widget2"] ) %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url2"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url2"]}}">
+                        {% if url_dic["block_url_img2"] %}
+                            <img src="{{url_dic["block_url_img2"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget2"] %}
+                        {{ widget_dic["block_widget2"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                    
+                {% elif (row*division_col)+col == 3 and url_dic["block_url3"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url3"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url3"]}}">
+                        {% if url_dic["block_url_img3"] %}
+                            <img src="{{url_dic["block_url_img3"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget3"] %}
+                        {{ widget_dic["block_widget3"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 4 and url_dic["block_url4"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url4"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url4"]}}">
+                        {% if url_dic["block_url_img4"] %}
+                            <img src="{{url_dic["block_url_img4"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget4"] %}
+                        {{ widget_dic["block_widget4"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 5 and url_dic["block_url5"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url5"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url5"]}}">
+                        {% if url_dic["block_url_img5"] %}
+                            <img src="{{url_dic["block_url_img5"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget5"] %}
+                        {{ widget_dic["block_widget5"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 6 and url_dic["block_url6"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url6"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url6"]}}">
+                        {% if url_dic["block_url_img6"] %}
+                            <img src="{{url_dic["block_url_img6"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget6"] %}
+                        {{ widget_dic["block_widget6"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 7 and url_dic["block_url7"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url7"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url7"]}}">
+                        {% if url_dic["block_url_img7"] %}
+                            <img src="{{url_dic["block_url_img7"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget7"] %}
+                        {{ widget_dic["block_widget7"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 8 and url_dic["block_url8"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url8"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url8"]}}">
+                        {% if url_dic["block_url_img8"] %}
+                            <img src="{{url_dic["block_url_img8"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget8"] %}
+                        {{ widget_dic["block_widget8"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 9 and url_dic["block_url9"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url9"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url9"]}}">
+                        {% if url_dic["block_url_img9"] %}
+                            <img src="{{url_dic["block_url_img9"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget9"] %}
+                        {{ widget_dic["block_widget9"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 10 and url_dic["block_url10"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url10"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url10"]}}">
+                        {% if url_dic["block_url_img10"] %}
+                            <img src="{{url_dic["block_url_img10"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget10"] %}
+                        {{ widget_dic["block_widget10"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 11 and url_dic["block_url11"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url11"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url11"]}}">
+                        {% if url_dic["block_url_img11"] %}
+                            <img src="{{url_dic["block_url_img11"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget11"] %}
+                        {{ widget_dic["block_widget11"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 12 and url_dic["block_url12"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url12"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url12"]}}">
+                        {% if url_dic["block_url_img12"] %}
+                            <img src="{{url_dic["block_url_img12"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget12"] %}
+                        {{ widget_dic["block_widget12"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 13 and url_dic["block_url13"] %}
+                   <div class = "semi-division">
+                    {% if url_dic["block_url13"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url13"]}}">
+                        {% if url_dic["block_url_img13"] %}
+                            <img src="{{url_dic["block_url_img13"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget13"] %}
+                        {{ widget_dic["block_widget13"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 14 and url_dic["block_url14"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url14"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url14"]}}">
+                        {% if url_dic["block_url_img14"] %}
+                            <img src="{{url_dic["block_url_img14"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget14"] %}
+                        {{ widget_dic["block_widget14"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% elif (row*division_col)+col == 15 and url_dic["block_url15"] %}
+                    <div class = "semi-division">
+                    {% if url_dic["block_url15"] %}
+                        <a href="{{ url_for('unset_block', block_num=(row*division_col)+col) }}">
+                        &times;
+                        </a>
+                        </button>
+                        <a href="{{url_dic["block_url15"]}}">
+                        {% if url_dic["block_url_img15"] %}
+                            <img src="{{url_dic["block_url_img15"]}}" class="img-rounded">
+                        {% else %}  
+                            <img src="./static/images/noimgage.png" class="img-rounded">
+                        {% endif %}
+                        </a>
+                    {% elif widget_dic["block_widget15"] %}
+                        {{ widget_dic["block_widget15"] }}
+<!--                        
+                        <div class = "indivision">
+                        <input type="text" class="greenbox" name="query" maxlength="255">
+
+                        </div>
+-->
+                    {% endif %}
+                    </div>
+                {% else %}
+                    <div class = "semi-division">
+                    <a href="{{ url_for('set_block', block_num=(row*division_col)+col) }}">
+                    <img src="./static/images/selectpage.jpg" class="img-rounded">
+                    </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </br>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+{% endblock %}
+

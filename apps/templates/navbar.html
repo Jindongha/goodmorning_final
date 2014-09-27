@@ -1,0 +1,252 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!--<div class="container">-->
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<!-- navbar 버튼 -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+	  	</button>
+
+	  	<a class="navbar-brand example_3" href="{{ url_for('article_list')}}">
+	  		MyMornings.com
+	  	</a>
+
+	  	<div class = "navbar-brand example_2">
+	  		<a href="{{ url_for('article_create') }}" class = "example_4">
+	  			<div class = "navbar-brand example">
+	  				Layout Samples
+	  			</div>
+	  		</a>
+
+	  		<a href="" class = "example_4">
+	  			<div class = "navbar-brand example">
+	  				Manual / QnA
+	  			</div>
+	  		</a>
+	  	</div>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  		<ul class="nav navbar-nav navbar-right">
+		  		<div class="user-nav" >
+					<li>
+					
+					{% if g.user_name %}
+					<a href="">{{g.user_email}}</a>
+					<a href="{{ url_for('log_out')}}">로그아웃</a>
+					{% else%}
+					<a class = "cd-signin" href="#">로그인</a>
+					<a class = "cd-signup" href="#">회원가입</a>
+					{% endif%}
+					</li>
+				</div>
+			</ul>
+
+		
+        <!---->
+        <!--이페이지를 홈페이지로-->
+        <!---->
+			<ul class="nav navbar-nav navbar-right">
+          		<li class="nav-menu">
+            		<a href="javascript:;" onclick="this.style.behavior = 'url(#default#homepage)'; this.setHomePage('http://mymornings.com');" class="">
+              			<img src="{{ url_for('static', filename='images/make_homepage.png') }}" class="nav-menu-img show_web">
+	            		<div class="show_mobile">
+	            			이 페이지를 홈페이지로
+	            		</div> 
+	            	</a>           		
+          		</li>
+        	</ul>			
+			{% if g.user_name %}
+		<!---->
+        <!--새페이지만들기 메뉴-->
+        <!---->
+			<ul class="nav navbar-nav navbar-right">
+          		<li class="nav-menu">
+            		<a href="{{ url_for('init_page') }}">
+              			<img src="{{ url_for('static', filename='images/new_page.png') }}" class="nav-menu-img show_web">
+              			<div class="show_mobile">
+                			새 페이지 만들기
+              			</div>
+            		</a>
+          		</li>
+        	</ul>
+		<!---->
+        <!--페이지 불러오기 메뉴-->
+        <!---->
+			<ul class="nav navbar-nav navbar-right">
+          		<li class="nav-menu">
+            		<a class="dropdown-toggle" data-toggle="dropdown">
+              			<img src="{{ url_for('static', filename='images/load_page.png') }}" class="nav-menu-img show_web">
+              			<div class="show_mobile">
+                			페이지 불러오기
+              			</div>
+            		</a>
+            		<ul class="dropdown-menu" role="menu">
+						<li><a href="#">(페이지 이름)</a></li>
+				  	</ul>
+          		</li>
+        	</ul>
+		<!---->
+        <!--페이지저장 메뉴-->
+        <!---->
+			<ul class="nav navbar-nav navbar-right">
+          		<li class="nav-menu">
+            		<a class="">
+              			<img src="{{ url_for('static', filename='images/save_page.png') }}" class="nav-menu-img show_web">
+              			<div class="show_mobile">
+                			페이지 저장하기
+              			</div>
+            		</a>
+          		</li>
+        	</ul>
+        <!---->
+        <!--페이지 편집 메뉴 + 슬라이드토글-->
+        <!---->
+	        <ul class="nav navbar-nav navbar-right">
+	          	<li class="nav-menu">
+	            	<a id="" class="edit_menu">
+	              		<img src="{{ url_for('static', filename='images/edit_page.png') }}" class="nav-menu-img show_web">
+	            	
+	            		<div class="show_mobile">
+	            			페이지 편집하기
+	            		</div>
+	            	</a>
+	          	</li>
+	        </ul>
+		<!---->
+	    <!-- 페이지 편집툴 모음 -->
+	    <!---->
+        	<div class="nav navbar-nav navbar-right toolbar">
+	          	<div class="nav-menu">
+	            	<a href="{{ url_for('make_division') }}">
+	              		<img src="{{ url_for('static', filename='images/edit_layout.png') }}" class="nav-menu-img tool show_web">
+	              	</a>
+	              	<a href="">
+	            		<img src="{{ url_for('static', filename='images/edit_bookmark.png') }}" class="nav-menu-img tool show_web">
+	            	</a>
+	            	<a href="{{ url_for('make_widget') }}">
+	            		<img src="{{ url_for('static', filename='images/edit_widget.png') }}" class="nav-menu-img tool show_web">
+	            	</a>
+	            	
+	            	<a href="">
+	            		<img src="{{ url_for('static', filename='images/edit_background.png') }}" class="nav-menu-img tool show_web">
+	            	</a>
+	          	</div>
+	        </div>	        
+			{% endif %}
+        	
+	</div><!-- /.navbar-collapse -->
+  <!--</div>--><!-- /.container-fluid -->
+</nav>
+<div class="hide-nav">
+	<p class="hide-menu"><i class="fa fa-angle-double-up"></i></p>
+	<p style="display:none" class="hide-menu"><i class="fa fa-angle-double-down"></i></p>
+</div>
+
+
+<!--로그인/회원가입 -->
+<!--로그인/회원가입 -->
+<!--로그인/회원가입 -->
+<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+	<div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+		<ul class="cd-switcher">
+			<li><a href="#0">Sign in</a></li>
+			<li><a href="#0">New account</a></li>
+		</ul>
+
+		<div id="cd-login"> <!-- log in form -->
+			<form class="cd-form" id="login_form" action = "{{ url_for('user_signin') }}" method="post">
+				<p class="fieldset">
+					<label class="image-replace cd-email" for="signin-email">E-mail</label>
+					<input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="이메일" name = "email">
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signin-password">Password</label>
+					<input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="비밀번호" name= "password">
+					<a href="#0" class="hide-password">Show</a>
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<input type="checkbox" id="remember-me" checked>
+					<label for="remember-me">Remember me</label>
+				</p>
+
+				<p class="fieldset">
+					<input class="full-width" type="submit" value="Login">
+				</p>
+			</form>
+
+			<p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
+			<!-- <a href="#0" class="cd-close-form">Close</a> -->
+		</div> <!-- cd-login -->
+
+		<div id="cd-signup"> <!-- sign up form -->
+			<form class="cd-form" id="signup_form" action="{{ url_for('user_signup') }}" method="post">
+				<p class="fieldset">
+					<label class="image-replace cd-username" for="signup-username">Username</label>
+					<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="사용자 이름" name ="name">
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-email" for="signup-email">E-mail</label>
+					<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="이메일" name ="email">
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signup-password">Password</label>
+					<input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="비밀번호 (5글자이상)" name="password">
+					<a href="#0" class="hide-password">Show</a>
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signup-password">Confirm Password</label>
+					<input class="full-width has-padding has-border" id="confirm_password" type="password"  placeholder="비밀번호 확인" name="confirm_password">
+					<a href="#0" class="hide-password">Show</a>
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<input class="full-width has-padding" type="submit" value="Create account">
+				</p>
+			</form>
+
+			<!-- <a href="#0" class="cd-close-form">Close</a> -->
+		</div> <!-- cd-signup -->
+
+		<div id="cd-reset-password"> <!-- reset password form -->
+			<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+
+			<form class="cd-form">
+				<p class="fieldset">
+					<label class="image-replace cd-email" for="reset-email">E-mail</label>
+					<input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+					<span class="cd-error-message">Error message here!</span>
+				</p>
+
+				<p class="fieldset">
+					<input class="full-width has-padding" type="submit" value="Reset password">
+				</p>
+			</form>
+
+			<p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+		</div> <!-- cd-reset-password -->
+		<a href="#0" class="cd-close-form">Close</a>
+	</div> <!-- cd-user-modal-container -->
+</div>
+
+
+
+
+<!--로그인/회원가입 -->
+<!--로그인/회원가입 -->
+		<!--로그인/회원가입 -->
