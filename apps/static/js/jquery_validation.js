@@ -19,7 +19,7 @@ $("#signup_form").validate({
 			confirm_password: {
 
 				required: true,
-				minlength: 5,
+				minlength: 4,
 
 			equalTo: "#signup-password" // id가 password인 input과 값이 같아야 함
 

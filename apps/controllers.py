@@ -1,26 +1,31 @@
 # -*- coding: utf-8 -*-
 from kstime import kstime
-from flask import render_template, request, redirect, url_for, flash, g, session, jsonify
+from flask import render_template, request, redirect, url_for, flash, g, session, jsonify, make_response
 from werkzeug.security import generate_password_hash, \
 	 check_password_hash
 from sqlalchemy import desc,distinct,func
+from sqlalchemy.orm.exc import NoResultFound
 from apps import app, db
+from google.appengine.api import images
+from werkzeug.http import parse_options_header
+from google.appengine.ext import blobstore
+import logging
 
 from apps.forms import ArticleForm, CommentForm, JoinForm, LoginForm
-from apps.models import Article, Comment, User
+from apps.models import Article, Comment, User, Background
 #
 #@before request
 #
 @app.before_request
 def before_request():
-    g.user_name = None
+	g.user_name = None
 
-    if 'user_id' in session:
-        g.user_name = session['user_name']
-        g.user_email = session['user_email']
-        g.user_id = session['user_id']
+	if 'user_id' in session:
+		g.user_name = session['user_name']
+		g.user_email = session['user_email']
+		g.user_id = session['user_id']
 
-        
+		
 @app.route('/article/detail_like', methods=['GET'])
 def article_like_ajax():
 	id = request.args.get('id', 0, type=int)
@@ -44,20 +49,20 @@ def comment_like_ajax():
 
 @app.route('/like', methods=['GET'])
 def article_like_from_timeline():
-    id = request.args.get('id', 0, type=int)
+	id = request.args.get('id', 0, type=int)
 
-    article = Article.query.get(id)
-    article.like += 1
+	article = Article.query.get(id)
+	article.like += 1
 
-    db.session.commit()
+	db.session.commit()
 
-    return jsonify(id=id)
+	return jsonify(id=id)
 
 
 #
 # @index & article list
 #
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET','POST'])
 def article_list():
 	# html 파일에 전달할 데이터 Context
 	context = {}
@@ -65,6 +70,44 @@ def article_list():
 	context['article_list'] = db.session.query(Article, stmt.c.comment_count).outerjoin(stmt, Article.id==stmt.c.article_id).order_by(desc(Article.date_created))
 	# Article 데이터 전부를 받아와서 최신글 순서대로 정렬하여 'article_list' 라는 key값으로 context에 저장한다.
 	#context['article_list'] = Article.query.order_by(desc(Article.date_created)).all()
+	
+	#put background
+	background_image = ""
+	if 'user_id' in session:
+		try:
+		#background_image = Background.query.filter_by(user_back=session['user_id']).one()
+			background_image = db.session.query(Background).filter(Background.user_back==session['user_id']).one()
+		except NoResultFound, e:
+			background_image = ""
+	upload_uri = blobstore.create_upload_url('/')
+
+	if request.method == 'POST':
+		f = request.files['bgi']
+		header = f.headers['Content-Type']
+		parsed_header = parse_options_header(header)
+		blob_key = parsed_header[1]['blob-key']
+			# 사용자가 입력한 글 데이터로 Article 모델 인스턴스를 생성한다.
+		try:
+			background = db.session.query(Background).filter(Background.user_back==session['user_id']).one()
+			background.image_key = blob_key
+
+			db.session.commit()
+
+		except NoResultFound, e:
+			background = Background(
+				image_key=blob_key,
+				user= User.query.get(session['user_id'])
+				)
+
+				# 데이터베이스에 데이터를 저장할 준비를 한다. (게시글)
+			db.session.add(background)
+				# 데이터베이스에 저장하라는 명령을 한다.
+			db.session.commit()
+
+		flash(u'배경화면을 설정하였습니다.', 'success')
+		return redirect(url_for('article_list'))
+
+
 	division_row = request.cookies.get('division_row')
 	division_col = request.cookies.get('division_col')
 	search = request.cookies.get('search')
@@ -88,9 +131,9 @@ def article_list():
 
 
 	if division_row or division_col:
-		return render_template("home.html", context=context, active_tab='timeline', division_row = division_row , division_col = division_col,url_dic = url_dic, widget_dic = widget_dic, search = search)
+		return render_template("home.html", context=context, active_tab='timeline', division_row = division_row , division_col = division_col,url_dic = url_dic, widget_dic = widget_dic, search = search, upload_uri=upload_uri, background_image=background_image)
 
-	return render_template('home.html', context=context, active_tab='timeline')
+	return render_template('home.html', context=context, active_tab='timeline', upload_uri=upload_uri, background_image=background_image)
 
 
 #
@@ -222,19 +265,42 @@ def comment_like(id):
 
 	return redirect(url_for('article_detail', id=article_id))
 
+# background image get
+@app.route('/photo/get/<path:blob_key>', methods=['GET'])
+def photo_get(blob_key):
+	if blob_key:
+		blob_info = blobstore.get(blob_key)
+		logging.warn(blob_info)
+		if blob_info:
+			img = images.Image(blob_key=blob_key)
+			img.crop(0.0,0.0,1.0,1.0)
+			#img.im_feeling_lucky()
+			thumbnail = img.execute_transforms(output_encoding=images.PNG)
+			logging.info(thumbnail)
+
+			response = make_response(thumbnail)
+			response.headers['Content-Type'] = blob_info.content_type
+			return response
 
 #
 # @Join controllers
 #
-@app.route('/user/signup/', methods=['GET', 'POST'])
+@app.route('/user/signup', methods=['POST'])
 def user_signup():
-	if request.method == 'POST':
-		user_data = request.form
+	user_data = request.form
+	username = user_data['name']
+	email = user_data['email']
+	password = user_data['password']
 
+	try:
+		user = db.session.query(User).filter(User.email==email).one()
+		flash(u'이미 존재하는 메일입니다.', 'danger')
+		return redirect(url_for('article_list'))
+	except NoResultFound, e:
 		user=User(
-			email = user_data['email'],
-			password=generate_password_hash(user_data['password']),
-			name=user_data['name'],
+			email = email,
+			password=generate_password_hash(password),
+			name=username,
 			join_date = kstime(9)
 			)
 
@@ -243,8 +309,6 @@ def user_signup():
 
 		flash(u'가입이 완료 되었습니다.', 'success')
 		return redirect(url_for('article_list'))
-	#if GET
-	return render_template('user/join.html', form=form, active_tab='user_join')
 #
 # @Login controllers
 #
@@ -285,19 +349,19 @@ def log_out():
 
 @app.route('/init_page', methods=['GET'])
 def init_page():
-    resp = make_response(redirect(url_for('article_list')))
-    resp.set_cookie('division_row',0)
-    resp.set_cookie('division_col',0)
-    for i in range(16):
-        block_url = "block_url"+str(i)
-        resp.set_cookie(block_url,"")
-        block_url_img = "block_url_img"+str(i)
-        resp.set_cookie(block_url_img,"")
-        block_widget = "block_widget"+str(i)
-        resp.set_cookie(block_widget,"")
+	resp = make_response(redirect(url_for('article_list')))
+	resp.set_cookie('division_row',0)
+	resp.set_cookie('division_col',0)
+	for i in range(16):
+		block_url = "block_url"+str(i)
+		resp.set_cookie(block_url,"")
+		block_url_img = "block_url_img"+str(i)
+		resp.set_cookie(block_url_img,"")
+		block_widget = "block_widget"+str(i)
+		resp.set_cookie(block_widget,"")
 
-    flash(u'화면초기화가 완료되었습니다.','success')
-    return resp
+	flash(u'화면초기화가 완료되었습니다.','success')
+	return resp
 
 
 

@@ -36,3 +36,11 @@ class User(db.Model):
 	name = db.Column(db.String(255))
 	join_date = db.Column(db.DateTime())
 
+#
+#background
+#
+class Background(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user_back = db.Column(db.Integer, db.ForeignKey('user.id'))
+	user = db.relationship('User', backref=db.backref('backgrounds', cascade='all, delete-orphan', lazy='dynamic'))
+	image_key = db.Column(db.String(255))
