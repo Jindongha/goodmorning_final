@@ -12,7 +12,7 @@ $("#signup_form").validate({
 			password: {
 
 				required: true,
-				minlength: 5
+				minlength: 4
 
 			},
 
@@ -46,14 +46,14 @@ $("#signup_form").validate({
 		password: {
 
 			required: "Please provide a password",
-			minlength: "Your password must be at least 5 characters long"
+			minlength: "Your password must be at least 4 characters long"
 
 		},
 
 		confirm_password: {
 
 			required: "Please provide a password",
-			minlength: "Your password must be at least 5 characters long",
+			minlength: "Your password must be at least 4 characters long",
 			equalTo: "Please enter the same password as above"
 
 		},
@@ -89,7 +89,7 @@ $("#login_form").validate({
 		password: {
 
 			required: "Please provide a password",
-			minlength: "Your password must be at least 5 characters long"
+			minlength: "Your password must be at least 4 characters long"
 
 		},
 
