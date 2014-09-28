@@ -36,12 +36,15 @@
 					<li>
 					
 					{% if g.user_name %}
-					<a href="">{{g.user_name}}님의 아침</a>
+					<a href="">{{g.user_email}}</a>
 					<a href="{{ url_for('log_out')}}">로그아웃</a>
 					{% else%}
 					<a class = "cd-signin" href="#">로그인</a>
 					<a class = "cd-signup" href="#">회원가입</a>
 					{% endif%}
+
+				
+
 					</li>
 				</div>
 			</ul>
@@ -53,7 +56,7 @@
 			<ul class="nav navbar-nav navbar-right">
           		<li class="nav-menu">
             		<a href="javascript:;" onclick="this.style.behavior = 'url(#default#homepage)'; this.setHomePage('http://mymornings.com');" class="">
-              			<img src="{{ url_for('static', filename='images/make_homepage.png') }}" class="nav-menu-img show_web">
+              			<img src="{{ url_for('static', filename='images/change.png') }}" class="nav-menu-img show_web">
 	            		<div class="show_mobile">
 	            			이 페이지를 홈페이지로
 	            		</div> 
@@ -67,7 +70,7 @@
 			<ul class="nav navbar-nav navbar-right">
           		<li class="nav-menu">
             		<a href="{{ url_for('init_page') }}">
-              			<img src="{{ url_for('static', filename='images/new_page.png') }}" class="nav-menu-img show_web">
+              			<img src="{{ url_for('static', filename='images/make.png') }}" class="nav-menu-img show_web">
               			<div class="show_mobile">
                 			새 페이지 만들기
               			</div>
@@ -80,7 +83,7 @@
 			<ul class="nav navbar-nav navbar-right">
           		<li class="nav-menu">
             		<a class="dropdown-toggle" data-toggle="dropdown">
-              			<img src="{{ url_for('static', filename='images/load_page.png') }}" class="nav-menu-img show_web">
+              			<img src="{{ url_for('static', filename='images/.png') }}" class="nav-menu-img show_web">
               			<div class="show_mobile">
                 			페이지 불러오기
               			</div>
@@ -96,7 +99,7 @@
 			<ul class="nav navbar-nav navbar-right">
           		<li class="nav-menu">
             		<a class="">
-              			<img src="{{ url_for('static', filename='images/save_page.png') }}" class="nav-menu-img show_web">
+              			<img src="{{ url_for('static', filename='images/save.png') }}" class="nav-menu-img show_web">
               			<div class="show_mobile">
                 			페이지 저장하기
               			</div>
@@ -109,7 +112,7 @@
 	        <ul class="nav navbar-nav navbar-right">
 	          	<li class="nav-menu">
 	            	<a id="" class="edit_menu">
-	              		<img src="{{ url_for('static', filename='images/edit_page.png') }}" class="nav-menu-img show_web">
+	              		<img src="{{ url_for('static', filename='images/edit.png') }}" class="nav-menu-img show_web">
 	            	
 	            		<div class="show_mobile">
 	            			페이지 편집하기
@@ -117,51 +120,25 @@
 	            	</a>
 	          	</li>
 	        </ul>
-
 		<!---->
 	    <!-- 페이지 편집툴 모음 -->
 	    <!---->
         	<div class="nav navbar-nav navbar-right toolbar">
-        		<ul class="nav navbar-nav">
-		          	<li class="navbar-right nav-menu">
-		            	<a href="{{ url_for('make_division') }}" data-toggle="modal" data-target="#divisionModal">
-		              		<img src="{{ url_for('static', filename='images/edit_layout.png') }}" class="nav-menu-img tool show_web">
-		              	</a>
-		            </li>
-		        </ul>
-		        <ul class="nav navbar-nav">
-		            <li class="nav-menu">
-		              	<a href="">
-		            		<img src="{{ url_for('static', filename='images/edit_bookmark.png') }}" class="nav-menu-img tool show_web">
-		            	</a>
-		           	</li>
-		        </ul>
-		        <ul class="nav navbar-nav">
-		           	<li class="nav-menu">
-		            	<a href="{{ url_for('make_widget') }}" data-toggle="modal" data-target="#widgetModal">
-		            		<img src="{{ url_for('static', filename='images/edit_widget.png') }}" class="nav-menu-img tool show_web">
-		            	</a>
-		            </li>
-		        </ul>
-
-		        
-        		<ul class="nav navbar-nav navbar-right">
-	            	 <li class="nav-menu dropdown">
-          				<a href="" class="dropdown-toggle" data-toggle="dropdown" id="create-user">
-          					<img src="{{ url_for('static', filename='images/edit_background.png') }}" class="nav-menu-img tool show_web">
-          				</a>
-	          			<ul class="dropdown-menu" role="menu">
-	            			<li style="text-align:center"><h3>새 배경화면</h3></li>
-	            			<li class="divider"></li>
-	            			<form role = "form" action="{{ upload_uri }}" enctype = "multipart/form-data" method = "post">
-								<input type="file" name = "bgi"><br>
-								<li class="divider"></li>
-								<input type="submit" value="업로드">
-								<input type="reset" value="취소">
-							</form>
-	          			</ul>
-        			</li>
-        		</ul>
+	          	<div class="nav-menu">
+	            	<a href="{{ url_for('make_division') }}">
+	              		<img src="{{ url_for('static', filename='images/layout.png') }}" class="nav-menu-img tool show_web">
+	              	</a>
+	              	<a href="">
+	            		<img src="{{ url_for('static', filename='images/addfavorits.png') }}" class="nav-menu-img tool show_web">
+	            	</a>
+	            	<a href="{{ url_for('make_widget') }}">
+	            		<img src="{{ url_for('static', filename='images/addsearchbar.png') }}" class="nav-menu-img tool show_web">
+	            	</a>
+	            	
+	            	<a href="">
+	            		<img src="{{ url_for('static', filename='images/wallpaper.png') }}" class="nav-menu-img tool show_web">
+	            	</a>
+	          	</div>
 	        </div>	        
 			{% endif %}
         	
@@ -185,7 +162,7 @@
 		</ul>
 
 		<div id="cd-login"> <!-- log in form -->
-			<form class="cd-form" id="login_form" method="post" action="{{ url_for('user_signin') }}" >
+			<form class="cd-form" id="login_form" action = "{{ url_for('user_signin') }}" method="post">
 				<p class="fieldset">
 					<label class="image-replace cd-email" for="signin-email">E-mail</label>
 					<input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="이메일" name = "email">
