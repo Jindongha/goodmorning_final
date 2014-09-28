@@ -133,7 +133,7 @@ def article_list():
 	if division_row or division_col:
 		return render_template("home.html", context=context, active_tab='timeline', division_row = division_row , division_col = division_col,url_dic = url_dic, widget_dic = widget_dic, search = search, upload_uri=upload_uri, background_image=background_image)
 
-	return render_template('home.html', context=context, active_tab='timeline', upload_uri=upload_uri, background_image=background_image)
+	return render_template('home.html', context=context, active_tab='timeline', upload_uri=upload_uri, background_image=background_image , search = search)
 
 
 #
@@ -183,6 +183,7 @@ def article_update(id):
 		return redirect(url_for('article_detail', id=id))
 
 	return render_template('article/update.html', form=form)
+
 
 
 @app.route('/article/delete/<int:id>', methods=['GET', 'POST'])
