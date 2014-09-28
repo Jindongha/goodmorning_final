@@ -48,7 +48,7 @@ class Background(db.Model):
 class Cookies(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	user_cookie = db.Column(db.Integer, db.ForeignKey('user.id'))
-	user = db.relationship('User', backref=db.backref('backgrounds', cascade='all, delete-orphan', lazy='dynamic'))
+	users = db.relationship('User', backref=db.backref('cookie', cascade='all, delete-orphan', lazy='dynamic'))
 	block_url0 = db.Column(db.String(255))
 	block_url1 = db.Column(db.String(255))
 	block_url2 = db.Column(db.String(255))

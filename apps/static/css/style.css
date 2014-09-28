@@ -84,10 +84,14 @@ li.nav-menu a{
 	background-color:#fff;
 }
 .background-container{
+	height:100%;
+	width:100%;
+	z-index:-1;
 	margin:0px;
 	padding:0px;
 	background-size: cover;
 	background-position: center center;
+	position:fixed;
 }
 .fullwindow{
 	height:100%;

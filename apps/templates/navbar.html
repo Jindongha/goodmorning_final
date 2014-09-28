@@ -8,39 +8,41 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
-	  	</button>
+		</button>
 
-	  	<a class="navbar-brand example_3" href="{{ url_for('article_list')}}">
-	  		MyMornings.com
-	  	</a>
+		<a class="navbar-brand example_3" href="{{ url_for('article_list')}}">
+			MyMornings.com
+		</a>
 
-	  	<div class = "navbar-brand example_2">
-	  		<a href="{{ url_for('article_create') }}" class = "example_4">
-	  			<div class = "navbar-brand example">
-	  				Layout Samples
-	  			</div>
-	  		</a>
+		<div class = "navbar-brand example_2">
+			<a href="{{ url_for('article_create') }}" class = "example_4">
+				<div class = "navbar-brand example">
+					Layout Samples
+				</div>
+			</a>
 
-	  		<a href="" class = "example_4">
-	  			<div class = "navbar-brand example">
-	  				Manual / QnA
-	  			</div>
-	  		</a>
-	  	</div>
+			<a href="" class = "example_4">
+				<div class = "navbar-brand example">
+					Manual / QnA
+				</div>
+			</a>
+		</div>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	  		<ul class="nav navbar-nav navbar-right">
-		  		<div class="user-nav" >
+			<ul class="nav navbar-nav navbar-right">
+				<div class="user-nav" >
 					<li>
 					
 					{% if g.user_name %}
-					<a href="">{{g.user_email}}</a>
+					<a href="">{{g.user_name}}님의 아침</a>
 					<a href="{{ url_for('log_out')}}">로그아웃</a>
 					{% else%}
+					<div class="showmodal">
 					<a class = "cd-signin" href="#">로그인</a>
 					<a class = "cd-signup" href="#">회원가입</a>
+					</div>
 					{% endif%}
 
 				
@@ -50,98 +52,123 @@
 			</ul>
 
 		
-        <!---->
-        <!--이페이지를 홈페이지로-->
-        <!---->
+		<!---->
+		<!--이페이지를 홈페이지로-->
+		<!---->
 			<ul class="nav navbar-nav navbar-right">
-          		<li class="nav-menu">
-            		<a href="javascript:;" onclick="this.style.behavior = 'url(#default#homepage)'; this.setHomePage('http://mymornings.com');" class="">
-              			<img src="{{ url_for('static', filename='images/change.png') }}" class="nav-menu-img show_web">
-	            		<div class="show_mobile">
-	            			이 페이지를 홈페이지로
-	            		</div> 
-	            	</a>           		
-          		</li>
-        	</ul>			
+				<li class="nav-menu">
+					<a href="javascript:;" onclick="this.style.behavior = 'url(#default#homepage)'; this.setHomePage('http://mymornings.com');" class="">
+						<img src="{{ url_for('static', filename='images/change.png') }}" class="nav-menu-img show_web">
+						<div class="show_mobile">
+							이 페이지를 홈페이지로
+						</div> 
+					</a>           		
+				</li>
+			</ul>			
 			{% if g.user_name %}
 		<!---->
-        <!--새페이지만들기 메뉴-->
-        <!---->
-			<ul class="nav navbar-nav navbar-right">
-          		<li class="nav-menu">
-            		<a href="{{ url_for('init_page') }}">
-              			<img src="{{ url_for('static', filename='images/make.png') }}" class="nav-menu-img show_web">
-              			<div class="show_mobile">
-                			새 페이지 만들기
-              			</div>
-            		</a>
-          		</li>
-        	</ul>
+		<!--새페이지만들기 메뉴-->
 		<!---->
-        <!--페이지 불러오기 메뉴-->
-        <!---->
 			<ul class="nav navbar-nav navbar-right">
-          		<li class="nav-menu">
-            		<a class="dropdown-toggle" data-toggle="dropdown">
-              			<img src="{{ url_for('static', filename='images/.png') }}" class="nav-menu-img show_web">
-              			<div class="show_mobile">
-                			페이지 불러오기
-              			</div>
-            		</a>
-            		<ul class="dropdown-menu" role="menu">
+				<li class="nav-menu">
+					<a href="{{ url_for('init_page') }}">
+						<img src="{{ url_for('static', filename='images/make.png') }}" class="nav-menu-img show_web">
+						<div class="show_mobile">
+							새 페이지 만들기
+						</div>
+					</a>
+				</li>
+			</ul>
+		<!---->
+		<!--페이지 불러오기 메뉴-->
+		<!---->
+			<ul class="nav navbar-nav navbar-right">
+				<li class="nav-menu">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="{{ url_for('static', filename='images/.png') }}" class="nav-menu-img show_web">
+						<div class="show_mobile">
+							페이지 불러오기
+						</div>
+					</a>
+					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">(페이지 이름)</a></li>
-				  	</ul>
-          		</li>
-        	</ul>
+					</ul>
+				</li>
+			</ul>
 		<!---->
-        <!--페이지저장 메뉴-->
-        <!---->
+		<!--페이지저장 메뉴-->
+		<!---->
 			<ul class="nav navbar-nav navbar-right">
-          		<li class="nav-menu">
-            		<a class="">
-              			<img src="{{ url_for('static', filename='images/save.png') }}" class="nav-menu-img show_web">
-              			<div class="show_mobile">
-                			페이지 저장하기
-              			</div>
-            		</a>
-          		</li>
-        	</ul>
-        <!---->
-        <!--페이지 편집 메뉴 + 슬라이드토글-->
-        <!---->
-	        <ul class="nav navbar-nav navbar-right">
-	          	<li class="nav-menu">
-	            	<a id="" class="edit_menu">
-	              		<img src="{{ url_for('static', filename='images/edit.png') }}" class="nav-menu-img show_web">
-	            	
-	            		<div class="show_mobile">
-	            			페이지 편집하기
-	            		</div>
-	            	</a>
-	          	</li>
-	        </ul>
+				<li class="nav-menu">
+					<a class="">
+						<img src="{{ url_for('static', filename='images/save.png') }}" class="nav-menu-img show_web">
+						<div class="show_mobile">
+							페이지 저장하기
+						</div>
+					</a>
+				</li>
+			</ul>
 		<!---->
-	    <!-- 페이지 편집툴 모음 -->
-	    <!---->
-        	<div class="nav navbar-nav navbar-right toolbar">
-	          	<div class="nav-menu">
-	            	<a href="{{ url_for('make_division') }}">
-	              		<img src="{{ url_for('static', filename='images/layout.png') }}" class="nav-menu-img tool show_web">
-	              	</a>
-	              	<a href="">
-	            		<img src="{{ url_for('static', filename='images/addfavorits.png') }}" class="nav-menu-img tool show_web">
-	            	</a>
-	            	<a href="{{ url_for('make_widget') }}">
-	            		<img src="{{ url_for('static', filename='images/addsearchbar.png') }}" class="nav-menu-img tool show_web">
-	            	</a>
-	            	
-	            	<a href="">
-	            		<img src="{{ url_for('static', filename='images/wallpaper.png') }}" class="nav-menu-img tool show_web">
-	            	</a>
-	          	</div>
-	        </div>	        
+		<!--페이지 편집 메뉴 + 슬라이드토글-->
+		<!---->
+			<ul class="nav navbar-nav navbar-right">
+				<li class="nav-menu">
+					<a id="" class="edit_menu">
+						<img src="{{ url_for('static', filename='images/edit.png') }}" class="nav-menu-img show_web">
+					
+						<div class="show_mobile">
+							페이지 편집하기
+						</div>
+					</a>
+				</li>
+			</ul>
+		<!---->
+		<!-- 페이지 편집툴 모음 -->
+		<!---->
+			<div class="nav navbar-nav navbar-right toolbar">
+				<ul class="nav navbar-nav">
+					<li class="navbar-right nav-menu">
+						<a href="{{ url_for('make_division') }}" data-toggle="modal" data-target="#divisionModal">
+							<img src="{{ url_for('static', filename='images/layout.png') }}" class="nav-menu-img tool show_web">
+						</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li class="nav-menu">
+						<a href="">
+							<img src="{{ url_for('static', filename='images/addfavorits.png') }}" class="nav-menu-img tool show_web">
+						</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li class="nav-menu">
+						<a href="{{ url_for('make_widget') }}" data-toggle="modal" data-target="#widgetModal">
+							<img src="{{ url_for('static', filename='images/addsearchbar.png') }}" class="nav-menu-img tool show_web">
+						</a>
+					</li>
+				</ul>
+
+				
+				<ul class="nav navbar-nav navbar-right">
+					 <li class="nav-menu dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown" id="create-user">
+							<img src="{{ url_for('static', filename='images/wallpaper.png') }}" class="nav-menu-img tool show_web">
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li style="text-align:center"><h3>새 배경화면</h3></li>
+							<li class="divider"></li>
+							<form role = "form" action="{{ upload_uri }}" enctype = "multipart/form-data" method = "post">
+								<input type="file" name = "bgi"><br>
+								<li class="divider"></li>
+								<input type="submit" value="업로드">
+								<input type="reset" value="취소">
+							</form>
+						</ul>
+					</li>
+				</ul>
+			</div>	        
 			{% endif %}
-        	
+			
 	</div><!-- /.navbar-collapse -->
   <!--</div>--><!-- /.container-fluid -->
 </nav>

@@ -8,8 +8,7 @@
 {% if background_image %}
 
 <div class="background-container fullwindow" style="background-image: url({{ url_for('photo_get', blob_key=background_image.image_key) }}); background-repeat: no-repeat;">
-{% else %}
-<div class="background-container fullwindow">
+</div>
 {% endif %}
 	<div class="custom-container">
         {% block messages %}

@@ -12,7 +12,7 @@ from google.appengine.ext import blobstore
 import logging
 
 from apps.forms import ArticleForm, CommentForm, JoinForm, LoginForm
-from apps.models import Article, Comment, User, Background
+from apps.models import Article, Comment, User, Background, Cookies
 #
 #@before request
 #
